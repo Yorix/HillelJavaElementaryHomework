@@ -9,7 +9,7 @@ public class MyCalc {
         System.out.println(mod(7, 3));
         System.out.println(avg(mod(7, 3), 2));
         System.out.println(pow(5.5));
-        System.out.println(percent(27, 4));
+        System.out.println(percent(mul(3, 7), 4));
 
     }
 
