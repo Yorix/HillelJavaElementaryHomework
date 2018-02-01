@@ -47,8 +47,8 @@ public class Calc {
                 multDiv(i, result);
                 i--;
             } else if (sign[i] == '/') {
-                double intermediateResult = numbers[i] / numbers[i + 1];
-                multDiv(i, intermediateResult);
+                double result = numbers[i] / numbers[i + 1];
+                multDiv(i, result);
                 i--;
             }
         }
