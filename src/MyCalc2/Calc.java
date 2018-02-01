@@ -42,12 +42,13 @@ public class Calc {
 
     private double calculating() {
         for (int i = 0; i < operationsNumber; i++) {
+            double result;
             if (sign[i] == '*') {
-                double result = numbers[i] * numbers[i + 1];
+                result = numbers[i] * numbers[i + 1];
                 multDiv(i, result);
                 i--;
             } else if (sign[i] == '/') {
-                double result = numbers[i] / numbers[i + 1];
+                result = numbers[i] / numbers[i + 1];
                 multDiv(i, result);
                 i--;
             }
