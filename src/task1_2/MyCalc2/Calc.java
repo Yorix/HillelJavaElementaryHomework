@@ -1,4 +1,4 @@
-package MyCalc2;
+package task1_2.MyCalc2;
 
 public class Calc {
     private String expression;
