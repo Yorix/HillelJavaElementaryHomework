@@ -8,7 +8,6 @@ public class Start {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter the expression using decimal numbers, +, -, *, or / ");
         new Calc(in.nextLine());
-
     }
 }
 
