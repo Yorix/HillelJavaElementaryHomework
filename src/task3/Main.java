@@ -1,5 +1,4 @@
 package task3;
-import static java.lang.System.out;
 
 public class Main {
     public static void main(String[] args) {
@@ -46,6 +45,6 @@ public class Main {
     }
 
     public static void printCentury(int year, int century) {
-        out.println(year + " is the " + century + " century.");
+        System.out.println(year + " is the " + century + " century.");
     }
 }
