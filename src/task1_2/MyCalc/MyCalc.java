@@ -5,25 +5,17 @@ public class MyCalc {
 
         System.out.println("1.-----------------------------");
 /*
-
         double a, b;
         a = 20;
         b = 30;
 
         System.out.println(a + " + " + b + " = " + add(a, b));
-
         System.out.println(a + " - " + a + " = " + sub(a, b));
-
         System.out.println(a + " * " + b + " = " + mul(a, b));
-
         System.out.println(a + " / " + b + " = " + div(a, b));
-
         System.out.println(a + " % " + b + " = " + mod(a, b));
-
         System.out.println("avg(" + a + ", " + b + ") = " + avg(a, b));
-
         System.out.println(a + " ^ 2 = " + pow(a));
-
         System.out.println(b + " % of " + a + " = " + percent(a, b));
 */
 
