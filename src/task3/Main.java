@@ -18,7 +18,7 @@ public class Main {
 
     private static int getYear() {
         while (true) {
-            System.out.println("Enter the year from " + MIN + " to " + MAX);
+            System.out.print("Enter the year from " + MIN + " to " + MAX + ": ");
 
             String input = new Scanner(System.in).nextLine();
             StringBuilder year = new StringBuilder("0");
@@ -46,6 +46,5 @@ public class Main {
         String input = new Scanner(System.in).next();
         if (input.equals("y"))
             main(null);
-        else System.exit(0);
     }
 }
