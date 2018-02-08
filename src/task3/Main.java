@@ -1,50 +1,44 @@
 package task3;
 
-public class Main {
-    public static void main(String[] args) {
-        int year;
-        int century;
+import java.util.Scanner;
 
-        year = 1999;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 1910;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 1700;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 1998;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 2000;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 2001;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 200;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 381;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 45;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 1000;
-        century = getCentury(year);
-        printCentury(year, century);
-        year = 1001;
+public class Main {
+    private static int year;
+    private static int century;
+    private static int min = 1, max = 2018;
+
+    public static void main(String[] args) {
+        year = getYear();
         century = getCentury(year);
         printCentury(year, century);
     }
 
-    public static int getCentury(int year) {
+    private static int getCentury(int year) {
         return (year - 1) / 100 + 1;
     }
 
-    public static void printCentury(int year, int century) {
+    private static int getYear() {
+        while (true) {
+            System.out.println("Enter the year from " + min + " to " + max);
+
+            String input = new Scanner(System.in).nextLine();
+            StringBuilder year = new StringBuilder("0");
+
+            for (int i = 0, len = input.length(); i < len; i++) {
+                if (input.charAt(i) >= '0' && input.charAt(i) <= '9') {
+                    year.append(input.charAt(i));
+                } else if (Integer.parseInt(year.toString()) >= min && Integer.parseInt(year.toString()) <= max) {
+                    return Integer.parseInt(year.toString());
+                }
+            }
+            if (Integer.parseInt(year.toString()) < min || Integer.parseInt(year.toString()) > max) {
+                continue;
+            }
+            return Integer.parseInt(year.toString());
+        }
+    }
+
+    private static void printCentury(int year, int century) {
         System.out.println(year + " is the " + century + " century.");
     }
 }
