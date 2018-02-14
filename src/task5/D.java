@@ -1,8 +1,6 @@
 package task5;
 
-import java.util.Arrays;
-
-public class D {
+public class D extends PrintArray {
     private static int[][] arr = {
             {27, 25, 23, 24, 21},
             {10, 20, 30, 40, 50},
@@ -28,17 +26,9 @@ public class D {
         return columnNumber;
     }
 
-    private static void printArray() {
-        for (int[] anArr : arr) {
-            System.out.println(Arrays.toString(anArr));
-        }
-        System.out.println();
-    }
-
     public static void main(String[] args) {
-        printArray();
+        printArray(arr);
         int MaxColNum = countUp();
-
 
         System.out.printf("Column %d contain the maximum sum.\n", MaxColNum);
     }

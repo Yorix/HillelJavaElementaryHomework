@@ -1,8 +1,6 @@
 package task5;
 
-import java.util.Arrays;
-
-public class C {
+public class C extends PrintArray {
     private static int[][] arr = {
             {1, 6},
             {2, 7},
@@ -19,16 +17,9 @@ public class C {
         }
     }
 
-    private static void printArray() {
-        for (int[] anArr : arr) {
-            System.out.println(Arrays.toString(anArr));
-        }
-        System.out.println();
-    }
-
     public static void main(String[] args) {
-        printArray();
+        printArray(arr);
         swap();
-        printArray();
+        printArray(arr);
     }
 }

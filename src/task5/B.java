@@ -1,14 +1,12 @@
 package task5;
 
-import java.util.Arrays;
-
-public class B {
+public class B extends PrintArray {
     private static int[][] arr = new int[10][10];
 
     public static void main(String[] args) {
 
         fillAnArray();
-        printArray();
+        printArray(arr);
         int sum = sumOfArrayElements();
         System.out.println("Sum of array elements: " + sum);
         double avg = avgOfArray();
@@ -94,11 +92,5 @@ public class B {
             }
         }
         return count;
-    }
-
-    private static void printArray() {
-        for (int[] anArr : arr) {
-            System.out.println(Arrays.toString(anArr));
-        }
     }
 }
