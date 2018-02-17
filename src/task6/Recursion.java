@@ -14,6 +14,9 @@ public class Recursion {
 
     private static boolean compare(char[] firstArr, char[] secondArr) {
         int i = 0;
+        if (firstArr.length != secondArr.length) {
+            return false;
+        }
         for (char element : firstArr) {
             if (element != secondArr[i]) {
                 return false;
@@ -32,7 +35,7 @@ public class Recursion {
         System.out.println("The result of calculation the expression 3*1 + 3*2 + ... + 3*n: " + sum(n));
 
         char[] arr1 = {'t', 'h', 'i', 's', 'i', 's', 't', 'r', 'u', 'e'};
-        char[] arr2 = {116, 104, 105, 115, 105, 115, 116, 114, 117, 101};
+        char[] arr2 = {116, 104, 105, 115, 105, 115, 116, 114, 117};
         if (compare(arr1, arr2)) {
             System.out.println("Arrays are the same");
         } else {
