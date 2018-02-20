@@ -13,10 +13,13 @@ public class Recursion {
     }
 
     private static boolean compare(char[] firstArr, char[] secondArr) {
-        int i = 0;
+        if (firstArr == secondArr) {
+            return true;
+        }
         if (firstArr.length != secondArr.length) {
             return false;
         }
+        int i = 0;
         for (char element : firstArr) {
             if (element != secondArr[i]) {
                 return false;
@@ -39,7 +42,7 @@ public class Recursion {
         if (compare(arr1, arr2)) {
             System.out.println("Arrays are the same");
         } else {
-            System.out.println("Arrays are the different");
+            System.out.println("Arrays are different");
         }
     }
 }
