@@ -13,6 +13,9 @@ public class Recursion {
     }
 
     private static boolean compare(char[] firstArr, char[] secondArr) {
+        if (firstArr == null || secondArr == null) {
+            return false;
+        }
         if (firstArr == secondArr) {
             return true;
         }
