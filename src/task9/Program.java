@@ -33,12 +33,12 @@ public class Program {
         }
         System.out.println();
 
-        System.out.println("was it added? - " + list2.set(3, '!'));
-        System.out.println("was it added? - " + list2.add('?'));
-        System.out.println("was it added? - " + list2.add('?'));
-        System.out.println("was it added? - " + list2.add('?'));
-        System.out.println("was it added? - " + list2.add('?'));
-        System.out.println("was it added? - " + list2.add('?'));
+        System.out.println("set '!' to list2 under index 0: " + list2.set(3, '!'));
+        System.out.println("add '?' to list2: " + list2.add('?'));
+        System.out.println("add '?' to list2: " + list2.add('?'));
+        System.out.println("add '?' to list2: " + list2.add('?'));
+        System.out.println("add '?' to list2: " + list2.add('?'));
+        System.out.println("add '?' to list2: " + list2.add('?'));
         System.out.println("list2: ");
         for (char e : list2.getList()) {
             System.out.print(e);

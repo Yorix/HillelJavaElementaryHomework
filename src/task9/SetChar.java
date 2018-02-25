@@ -15,11 +15,6 @@ public class SetChar extends ListChar {
     }
 
     @Override
-    public boolean add(char e) {
-        return !contains(e) && super.add(e);
-    }
-
-    @Override
     public boolean set(int index, char c) {
         return !contains(c) && super.set(index, c);
     }

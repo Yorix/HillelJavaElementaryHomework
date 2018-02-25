@@ -27,8 +27,7 @@ public class ListChar {
         while (list[lastElement] != 0 && length <= size) {
             lastElement++;
         }
-        list[lastElement] = e;
-        length++;
+        set(lastElement, e);
         return true;
     }
 
