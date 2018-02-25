@@ -1,17 +1,12 @@
 package task9;
 
 public class SetChar extends ListChar {
-    private int size;
-    private char[] list;
-
     public SetChar() {
-        this(30);
+        super(30);
     }
 
     public SetChar(int size) {
-        this.size = size;
-        list = new char[size];
-        list = new char[size];
+        super(size);
     }
 
     @Override
