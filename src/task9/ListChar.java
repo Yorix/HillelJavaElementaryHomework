@@ -183,4 +183,13 @@ public class ListChar {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (char e : list) {
+            stringBuilder.append(e);
+        }
+        return stringBuilder.toString();
+    }
 }
