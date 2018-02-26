@@ -6,11 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class Window extends JFrame {
 
 
     Window() {
-        this("Days in a month");
+        this("Calculate in a month");
     }
 
     Window(String title) {
@@ -39,18 +40,20 @@ public class Window extends JFrame {
         setContentPane(panel);
         setVisible(true);
 
+        JRootPane rootPane = SwingUtilities.getRootPane(button);
+        rootPane.setDefaultButton(button);
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JLabel answer = new JLabel();
                 answer.setForeground(myColor);
-                if (textField.getText().matches("[0-9]{1,2}[.][0-9]{1,4}")) {
+                if (textField.getText().matches("([1-9]|[0][1-9]|[1][0-2])[.]\\d{1,4}")) {
                     if (textField.getText().charAt(1) == '.') {
                         textField.setText("0" + textField.getText());
                     }
                     try {
                         answer.setText(
-                                new Days().daysAtMonth(
+                                new Calculate().daysAtMonth(
                                         Integer.parseInt(textField.getText(0, 2)),
                                         Integer.parseInt(textField.getText().substring(3))
                                 )
@@ -60,6 +63,7 @@ public class Window extends JFrame {
                     }
                 } else {
                     answer.setText("Incorrect month or year.");
+                    textField.setText("");
                 }
                 panel.add(answer);
                 panel.updateUI();

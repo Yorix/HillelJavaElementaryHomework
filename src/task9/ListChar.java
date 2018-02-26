@@ -84,11 +84,10 @@ public class ListChar {
     public boolean equals(ListChar c) {
         if (c == null) return false;
         if (this == c) return true;
-        if (c.size != size || c.length != length) return false;
-        for (int i = 0; i < size; i++) {
-            if (c.list[i] != list[i]) return false;
-        }
-        return true;
+        return size == c.size &&
+                length == c.length &&
+                Arrays.equals(list, c.list) &&
+                d == c.d;
     }
 
     /**
@@ -135,10 +134,6 @@ public class ListChar {
         return length;
     }
 
-    char[] getList() {
-        return list;
-    }
-
     /**
      * true, if list is empty
      */
@@ -159,7 +154,7 @@ public class ListChar {
         if (len < 2) return arr;
         int middle = len / 2;
         return merge(mergeSort(Arrays.copyOfRange(arr, 0, middle)),
-                     mergeSort(Arrays.copyOfRange(arr, middle, len)));
+                mergeSort(Arrays.copyOfRange(arr, middle, len)));
     }
 
     private char[] merge(char[] arr1, char[] arr2) {
