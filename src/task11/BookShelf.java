@@ -1,10 +1,11 @@
 package task11;
 
+import java.util.Arrays;
+
 public class BookShelf {
     private Book[] books;
     private int size = 50;
     private int filling;
-
 
     public BookShelf() {
         books = new Book[size];
@@ -20,7 +21,7 @@ public class BookShelf {
 
     public boolean remove(int index) {
         if (books[index] != null) {
-            books[index] = null;
+            System.arraycopy(books, index + 1, books, index, books.length - 1 - index);
             filling--;
             return true;
         }
@@ -45,6 +46,4 @@ public class BookShelf {
         }
         return stringBuilder.toString();
     }
-
-
 }

@@ -14,6 +14,7 @@ public class WorkWithShelves {
         shelf1.put(new Book("Террор", "Дэн Симмонс"));
         shelf1.put(new Book("Футурологический конгресс", 192, "Станислав Лем", 1921));
         shelf1.put(new Book("Открытие себя", 304, "Владимир Савченко"));
+        shelf1.put(new Book("Час быка", 471, "Иван Ефремов", 1908));
 
 
 
@@ -33,7 +34,7 @@ public class WorkWithShelves {
 
     public static void separate(BookShelf src, BookShelf rcp) {
         for (int i = 0; i < src.getFilling(); i++) {
-            for (int j = i + 1, len = src.getFilling(); j < len; j++) {
+            for (int j = i + 1; j < src.getFilling(); j++) {
                 if (src.getBook(i).equals(src.getBook(j))) {
                     rcp.put(src.getBook(j));
                     src.remove(j);
