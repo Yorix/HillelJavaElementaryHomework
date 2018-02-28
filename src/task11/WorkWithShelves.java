@@ -18,17 +18,13 @@ public class WorkWithShelves {
 
 
 
-        System.out.println("shelf1 before separation:\n---------------------");
-        System.out.println(shelf1);
-        System.out.println("shelf2 before separation:\n---------------------");
-        System.out.println(shelf2);
+        System.out.println("shelves before separation:");
+        System.out.println(shelf1 + "" + shelf2);
 
         separate(shelf1, shelf2);
 
-        System.out.println("shelf1 after separation:\n---------------------");
-        System.out.println(shelf1);
-        System.out.println("shelf2 after separation:\n---------------------");
-        System.out.println(shelf2);
+        System.out.println("shelves after separation:");
+        System.out.println(shelf1 + "" + shelf2);
 
     }
 

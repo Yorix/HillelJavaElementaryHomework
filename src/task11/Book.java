@@ -1,27 +1,27 @@
 package task11;
 
 public class Book {
-    private String name;
+    private String title;
     private Author author;
     private int numberOfPages;
 
 
-    public Book(String name, int numberOfPages, String authorsName, int yearOfBirth) {
-        this.name = name;
+    public Book(String title, int numberOfPages, String authorsName, int yearOfBirth) {
+        this.title = title;
         this.numberOfPages = numberOfPages;
         author = new Author(authorsName, yearOfBirth);
     }
 
-    public Book(String name, int numberOfPages, String authorsName) {
-        this(name, numberOfPages, authorsName, 0);
+    public Book(String title, int numberOfPages, String authorsName) {
+        this(title, numberOfPages, authorsName, 0);
     }
 
-    public Book(String name, String authorsName, int yearOfBirth) {
-        this(name, 0, authorsName, yearOfBirth);
+    public Book(String title, String authorsName, int yearOfBirth) {
+        this(title, 0, authorsName, yearOfBirth);
     }
 
-    public Book(String name, String authorsName) {
-        this(name, authorsName, 0);
+    public Book(String title, String authorsName) {
+        this(title, authorsName, 0);
     }
 
     public Author getAuthor() {
@@ -33,12 +33,12 @@ public class Book {
         if (this == o) return true;
         if (!(o instanceof Book)) return false;
         Book book = (Book) o;
-        return name.equals(book.name) &&
+        return title.equals(book.title) &&
                 author.equals(book.author);
     }
 
     @Override
     public String toString() {
-        return numberOfPages > 0 ? name + " : " + author.getName() + " : " + numberOfPages + " pages" : name + " : " + author.getName();
+        return numberOfPages > 0 ? title + " : " + author.getName() + " : " + numberOfPages + " pages" : title + " : " + author.getName();
     }
 }

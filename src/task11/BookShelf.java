@@ -1,13 +1,15 @@
 package task11;
 
-import java.util.Arrays;
-
 public class BookShelf {
+    private static int numOfShelves;
+    private int id;
     private Book[] books;
-    private int size = 50;
+    private int size = 20;
     private int filling;
 
     public BookShelf() {
+        numOfShelves++;
+        id = numOfShelves;
         books = new Book[size];
     }
 
@@ -21,7 +23,7 @@ public class BookShelf {
 
     public boolean remove(int index) {
         if (books[index] != null) {
-            System.arraycopy(books, index + 1, books, index, books.length - 1 - index);
+            System.arraycopy(books, index + 1, books, index, books.length - index - 1);
             filling--;
             return true;
         }
@@ -38,7 +40,7 @@ public class BookShelf {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder("\n-------------------------------BookShelf " + id + "\n");
         int i = 0;
         while (books[i] != null) {
             stringBuilder.append(books[i]).append("\n");
