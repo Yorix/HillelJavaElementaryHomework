@@ -1,6 +1,4 @@
-package task9;
-
-import java.util.ArrayList;
+package task9_12;
 
 public class Test {
     public static void main(String[] args) {

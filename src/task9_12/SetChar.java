@@ -1,4 +1,4 @@
-package task9;
+package task9_12;
 
 public class SetChar extends ListChar {
     public SetChar() {

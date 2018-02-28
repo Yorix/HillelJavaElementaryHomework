@@ -1,4 +1,4 @@
-package task9;
+package task9_12;
 
 import java.util.Arrays;
 
@@ -81,14 +81,25 @@ public class ListChar {
     /**
      * compare two ListChar
      */
-    public boolean equals(ListChar c) {
-        if (c == null) return false;
-        if (this == c) return true;
-        return size == c.size &&
-                length == c.length &&
-                Arrays.equals(list, c.list) &&
-                d == c.d;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ListChar)) return false;
+        ListChar listChar = (ListChar) o;
+        return size == listChar.size &&
+                length == listChar.length &&
+                Arrays.equals(list, listChar.list) &&
+                d == listChar.d;
     }
+
+//    public boolean equals(ListChar c) {
+//        if (c == null) return false;
+//        if (this == c) return true;
+//        return size == c.size &&
+//                length == c.length &&
+//                Arrays.equals(list, c.list) &&
+//                d == c.d;
+//    }
 
     /**
      * clear all elements of list
