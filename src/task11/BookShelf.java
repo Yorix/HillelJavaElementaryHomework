@@ -40,7 +40,7 @@ public class BookShelf {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("\n-------------------------------BookShelf " + id + "\n");
+        StringBuilder stringBuilder = new StringBuilder("\n-------------------------------BookShelf #" + id + "\n");
         int i = 0;
         while (books[i] != null) {
             stringBuilder.append(books[i]).append("\n");
