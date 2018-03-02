@@ -24,8 +24,9 @@ public class ListChar {
      */
     public boolean add(char e) {
         if (lastElement >= size - 1) {
-            list = Arrays.copyOf(list, size + 10);
             size += 10;
+            list = Arrays.copyOf(list, size);
+
         }
         while (list[lastElement] != 0) {
             lastElement++;
