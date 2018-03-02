@@ -107,5 +107,19 @@ public class Test {
         System.out.println("list8: " + list8);
         System.out.println("list8 full size: " + list8.getFullSize());
 
+
+//        ListChar listChar = new ListChar(10);
+//        for (int i = 0; i < 10; i++) {
+//            char letter = (char) ('A' + i);
+//            listChar.set(i, letter);
+//        }
+//        System.out.println(listChar);
+//        System.out.println(listChar.getFullSize());
+//        listChar.add('#');
+//        listChar.add('#');
+//        listChar.add('#');
+//        System.out.println(listChar);
+//        System.out.println(listChar.getFullSize());
+
     }
 }

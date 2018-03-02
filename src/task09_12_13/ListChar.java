@@ -23,13 +23,13 @@ public class ListChar {
      * add a new char to list
      */
     public boolean add(char e) {
+        while (lastElement < size && list[lastElement] != 0) {
+            lastElement++;
+        }
         if (lastElement >= size - 1) {
             size += 10;
             list = Arrays.copyOf(list, size);
 
-        }
-        while (list[lastElement] != 0) {
-            lastElement++;
         }
         return set(lastElement, e);
     }
