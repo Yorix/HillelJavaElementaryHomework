@@ -1,4 +1,4 @@
-package task09_12;
+package task09_12_13;
 
 public class Test {
     public static void main(String[] args) {
@@ -79,5 +79,33 @@ public class Test {
         list5.add('4');
         list5.add('5');
         System.out.println(list5.equals(list6));
+
+
+        //////////////////////////////////////////////////////////// TASK 13 TEST
+
+        System.out.println("\n\nTASK 13 TEST\n");
+
+        ListChar list7 = new ListChar(10);
+        System.out.println("list7: " + list7);
+        System.out.println("list7 full size: " + list7.getFullSize());
+        System.out.println("list7 filling...");
+        for (int i = 0; i < 20; i++) {
+            char letter = (char) ('A' + (int) (Math.random() * 26));
+            list7.add(letter);
+        }
+        System.out.println("list7 full size: " + list7.getFullSize());
+        System.out.println("list7: " + list7);
+
+        SetChar list8 = new SetChar(2);
+        System.out.println("add '#' to list8: " + list8.add('#'));
+        System.out.println("list8: " + list8);
+        System.out.println("list8 full size: " + list8.getFullSize());
+        System.out.println("add all from list8 to list7: " + list7.addAll(list8));
+        System.out.println("list7: " + list7);
+        System.out.println("list7 full size: " + list7.getFullSize());
+        System.out.println("add all from list7 to list8: " + list8.addAll(list7));
+        System.out.println("list8: " + list8);
+        System.out.println("list8 full size: " + list8.getFullSize());
+
     }
 }

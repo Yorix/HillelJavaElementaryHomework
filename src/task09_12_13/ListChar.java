@@ -1,4 +1,4 @@
-package task09_12;
+package task09_12_13;
 
 import java.util.Arrays;
 
@@ -23,8 +23,11 @@ public class ListChar {
      * add a new char to list
      */
     public boolean add(char e) {
-        if (lastElement >= size - 1) return false;
-        while (list[lastElement] != 0 && length <= size) {
+        if (lastElement >= size - 1) {
+            list = Arrays.copyOf(list, size + 10);
+            size += 10;
+        }
+        while (list[lastElement] != 0) {
             lastElement++;
         }
         return set(lastElement, e);
@@ -67,9 +70,6 @@ public class ListChar {
      * add all elements from another list
      */
     public boolean addAll(ListChar listChar) {
-        if (listChar.length > getFreeSize()) {
-            return false;
-        }
         for (char adding : listChar.list) {
             if (adding != 0) {
                 add(adding);
@@ -91,15 +91,6 @@ public class ListChar {
                 Arrays.equals(list, listChar.list) &&
                 d == listChar.d;
     }
-
-//    public boolean equals(ListChar c) {
-//        if (c == null) return false;
-//        if (this == c) return true;
-//        return size == c.size &&
-//                length == c.length &&
-//                Arrays.equals(list, c.list) &&
-//                d == c.d;
-//    }
 
     /**
      * clear all elements of list
@@ -128,7 +119,7 @@ public class ListChar {
      * return full size of all list
      */
     public int getFullSize() {
-        return size;
+        return list.length;
     }
 
     /**
