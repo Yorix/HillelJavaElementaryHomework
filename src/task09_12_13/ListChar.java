@@ -27,9 +27,8 @@ public class ListChar {
             lastElement++;
         }
         if (lastElement >= size - 1) {
-            size += 10;
+            size *= 2;
             list = Arrays.copyOf(list, size);
-
         }
         return set(lastElement, e);
     }
