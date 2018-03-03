@@ -16,7 +16,6 @@ public class ListChar {
     public ListChar(int size) {
         this.size = size;
         list = new char[size];
-        list = new char[size];
     }
 
     /**
