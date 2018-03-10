@@ -1,15 +1,17 @@
-package task11;
+package task11_15;
 
 public class Book {
     private String title;
     private Author author;
     private int numberOfPages;
+    private static int counter; // TASK 15
 
 
     public Book(String title, int numberOfPages, String authorsName, int yearOfBirth) {
         this.title = title;
         this.numberOfPages = numberOfPages;
         author = new Author(authorsName, yearOfBirth);
+        counter++; // TASK 15
     }
 
     public Book(String title, int numberOfPages, String authorsName) {
@@ -26,6 +28,11 @@ public class Book {
 
     public Author getAuthor() {
         return author;
+    }
+
+    // TASK 15
+    public static int getCounter() {
+        return counter;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package task11;
+package task11_15;
 
 public class WorkWithShelves {
     public static void main(String[] args) {
@@ -26,6 +26,9 @@ public class WorkWithShelves {
 
         System.out.println("shelves after separation:");
         System.out.println(shelf1 + "" + shelf2);
+
+        // TASK 15
+        System.out.println("Total number of books: " + Book.getCounter());
 
     }
 
