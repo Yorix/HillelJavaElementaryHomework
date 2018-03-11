@@ -9,8 +9,16 @@ public class GuideDog extends Dog {
         this.isTrained = isTrained;
     }
 
-
     public String castVoice() {
         return isTrained ? super.castVoice() + ". I can take you home." : super.castVoice();
+    }
+
+    public void takeHome() {
+        if (isTrained) {
+            System.out.println("Let's go home.");
+        }
+        else {
+            System.out.println("And what do you want from me?");
+        }
     }
 }

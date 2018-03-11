@@ -18,5 +18,8 @@ public class Test {
             System.out.println(animal.castVoice());
             System.out.println(animal.habitat());
         }
+
+        GuideDog guideDog = (GuideDog) animals[5];
+        guideDog.takeHome();
     }
 }
