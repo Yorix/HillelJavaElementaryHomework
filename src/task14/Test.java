@@ -18,7 +18,7 @@ public class Test {
             System.out.println(animal.castVoice());
             System.out.println(animal.habitat());
             if (animal instanceof GuideDog) {
-                GuideDog guideDog = (GuideDog) animals[5];
+                GuideDog guideDog = (GuideDog) animal;
                 guideDog.takeHome();
             }
         }
