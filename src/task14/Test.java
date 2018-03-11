@@ -17,7 +17,7 @@ public class Test {
         for (Animal animal : animals) {
             System.out.println(animal.castVoice());
             System.out.println(animal.habitat());
-            if (animal == animals[5]) {
+            if (animal instanceof GuideDog) {
                 GuideDog guideDog = (GuideDog) animals[5];
                 guideDog.takeHome();
             }
