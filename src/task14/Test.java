@@ -15,11 +15,11 @@ public class Test {
         animals[8] = new Wolf(9, 4, 22, "Grey");
 
         for (Animal animal : animals) {
+            System.out.println(animal.getClass().getSimpleName());
             System.out.println(animal.castVoice());
             System.out.println(animal.habitat());
             if (animal instanceof GuideDog) {
-                GuideDog guideDog = (GuideDog) animal;
-                guideDog.takeHome();
+                ((GuideDog) animal).takeHome();
             }
         }
     }
