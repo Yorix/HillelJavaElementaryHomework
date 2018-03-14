@@ -1,61 +1,66 @@
 package blackjack.game;
 
+import java.util.Arrays;
+
 public class Player implements ResetRound {
     private int id;
     private static int count;
     private Card[] pocketCards;
     private int numberOfCards;
     private int points;
-    private int numberOfWonRounds;
+    private int numberOfWins;
     private boolean inGame;
 
-    Player(int deckSize) {
-        count++;
-        id = count;
-        pocketCards = new Card[deckSize];
+    Player() {
+        id = count++;
+        resetRound();
     }
 
-    public void takeCard(Deck srcDeck) {
-        if (numberOfCards < pocketCards.length - 1) {
-            pocketCards[numberOfCards] = srcDeck.give();
-            points += pocketCards[numberOfCards].getRank().getValue();
-            numberOfCards++;
+    void takeCard(Deck srcDeck) {
+        inGame = true;
+        if (numberOfCards >= pocketCards.length) {
+            pocketCards = Arrays.copyOf(pocketCards, pocketCards.length + 1);
+        }
+        if (numberOfCards >= Game.DECKSIZE) {
+            inGame = false;
             return;
         }
+        pocketCards[numberOfCards] = srcDeck.give();
+        points += pocketCards[numberOfCards].getRank().getValue();
+        numberOfCards++;
+    }
+
+    void pass() {
         inGame = false;
     }
 
-    public void pass() {
-        inGame = false;
-    }
-
-    public int getPoints() {
+    int getPoints() {
         return points;
     }
 
-    public boolean isInGame() {
+    boolean isInGame() {
         return inGame;
     }
 
-    public void putInGame() {
-        inGame = true;
+    void upNumberOfWins() {
+        numberOfWins++;
     }
 
-    public void upNumberOfWonRounds() {
-        numberOfWonRounds++;
+    int getNumberOfWins() {
+        return numberOfWins;
     }
 
-    public int getNumberOfWonRounds() {
-        return numberOfWonRounds;
+    Card[] getPocketCards() {
+        return pocketCards;
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
     @Override
     public void resetRound() {
-        pocketCards = new Card[pocketCards.length];
+        pocketCards = new Card[2];
         numberOfCards = 0;
         points = 0;
     }

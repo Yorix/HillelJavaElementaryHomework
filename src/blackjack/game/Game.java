@@ -1,52 +1,52 @@
 package blackjack.game;
 
 public class Game {
-    private final int DECKSIZE = 52;
+    public static final int DECKSIZE = 32;
     private int numberOfPlayers;
     private int numberOfRounds;
 
     private Table table;
     private Round[] rounds;
     private Player winner;
-    private int maxNumOfWins;
 
     public Game(int numberOfPlayers, int numberOfRounds) {
         this.numberOfPlayers = numberOfPlayers;
         this.numberOfRounds = numberOfRounds;
         table = new Table(DECKSIZE, numberOfPlayers);
         rounds = new Round[numberOfRounds];
-        winner = new Player(DECKSIZE);
+        winner = new Player();
         start();
     }
 
     private void start() {
         for (int i = 0; i < numberOfRounds; i++) {
             rounds[i] = new Round(table);
-            rounds[i].resetRound();
         }
 
-        maxNumOfWins = 0;
-        for (Player player : table.getPlayers()) {
-            if (player.getNumberOfWonRounds() > winner.getNumberOfWonRounds()) {
-                winner = player;
-                maxNumOfWins = winner.getNumberOfWonRounds();
+        winner = table.getPlayers()[0];
+        for (int i = 1; i < table.getPlayers().length; i++ ) {
+            if (table.getPlayers()[i].getNumberOfWins() > winner.getNumberOfWins()) {
+                winner = table.getPlayers()[i];
+            } else if (table.getPlayers()[i].getNumberOfWins() == winner.getNumberOfWins()) {
+                winner = null;
             }
         }
     }
 
     public String getResultOfGame() {
-        StringBuilder string = new StringBuilder("-------------\n");
-        for (Player player : table.getPlayers()) {
-            if (player.getNumberOfWonRounds() == maxNumOfWins && player.getNumberOfWonRounds() != 0) {
-                string.append("Player#").append(player.getId()).append(" won!\n");
-            }
+        StringBuilder builder = new StringBuilder("-------------\n");
+        if (winner == null) {
+            builder.append("Draw!\n");
+        } else {
+            builder.append("Player#").append(winner.getId() + 1).append(" won!\n");
         }
-        string.append("-------------\nThe overall result:\n");
+
+        builder.append("-------------\nThe overall result:\n");
         for (Player player : table.getPlayers()) {
-            string.append(" Player#").append(player.getId()).append(" - ").
-                    append(player.getNumberOfWonRounds()).append(" won rounds.\n");
+            builder.append(" Player#").append(player.getId() + 1).append(" - ").
+                    append(player.getNumberOfWins()).append(" won rounds.\n");
         }
-        return string.toString();
+        return builder.toString();
     }
 
     public Round[] getRounds() {
@@ -55,10 +55,6 @@ public class Game {
 
     public int getNumberOfRounds() {
         return numberOfRounds;
-    }
-
-    public int getDECKSIZE() {
-        return DECKSIZE;
     }
 
     public int getNumberOfPlayers() {

@@ -1,6 +1,6 @@
 package blackjack.game;
 
-public class Table implements ResetRound {
+public class Table {
     private Deck deck;
     private Player[] players;
 
@@ -8,7 +8,7 @@ public class Table implements ResetRound {
         deck = new Deck(deckSize);
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
-            players[i] = new Player(deckSize);
+            players[i] = new Player();
         }
     }
 
@@ -18,13 +18,5 @@ public class Table implements ResetRound {
 
     public Player[] getPlayers() {
         return players;
-    }
-
-    @Override
-    public void resetRound() {
-        for (Player player : players) {
-            player.resetRound();
-        }
-        deck.resetRound();
     }
 }

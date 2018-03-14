@@ -1,9 +1,8 @@
 package blackjack.game;
 
 public class Card {
-    private Rank rank;
-    private Suit suit;
-
+    private final Rank rank;
+    private final Suit suit;
 
     Card(Rank rank, Suit suit) {
         this.rank = rank;
@@ -16,5 +15,10 @@ public class Card {
 
     public Suit getSuit() {
         return suit;
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
     }
 }

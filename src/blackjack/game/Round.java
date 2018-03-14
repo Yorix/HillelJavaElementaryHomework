@@ -1,68 +1,79 @@
 package blackjack.game;
 
+import java.util.Arrays;
+
 public class Round implements ResetRound {
     private Table table;
     private int[] points;
+    private Card[][] pocketCards;
 
     Round(Table table) {
         this.table = table;
         points = new int[table.getPlayers().length];
-        start();
+        pocketCards = new Card[table.getPlayers().length][table.getPlayers()[0].getPocketCards().length];
+
+        playRound();
     }
 
-    private void start() {
-        boolean roundContinues;
-
+    private void playRound() {
+        resetRound();
         table.getDeck().shuffle();
 
         for (Player player : table.getPlayers()) {
-            player.putInGame();
+            do {
+                if (player.getPoints() < 17) {
+                    player.takeCard(table.getDeck());
+                } else {
+                    player.pass();
+                }
+            } while (player.isInGame());
         }
-
-        do {
-            for (Player player : table.getPlayers()) {
-                turn(player);
-            }
-            roundContinues = false;
-            for (Player player : table.getPlayers()) {
-                roundContinues |= player.isInGame();
-            }
-        } while (roundContinues);
 
         deal();
     }
 
-    private void turn(Player player) {
-        if (player.getPoints() <= 17) {
-            player.takeCard(table.getDeck());
-        } else {
-            player.pass();
-        }
-    }
-
     private void deal() {
-        Player winner = new Player(table.getDeck().getDeckSize());
-        int winnersCount = 0;
+        Player winner = new Player();
         for (Player player : table.getPlayers()) {
-            points[player.getId() - 1] = player.getPoints();
+            pocketCards[player.getId()] = player.getPocketCards();
+            points[player.getId()] = player.getPoints();
             if (player.getPoints() <= 21 && player.getPoints() > winner.getPoints()) {
                 winner = player;
-                winnersCount = 1;
-            } else if (player.getPoints() <= 21 && player.getPoints() == winner.getPoints()) {
-                winnersCount++;
+            } else if (player.getPoints() == winner.getPoints()) {
+                playRound();
+                return;
             }
         }
-        if (winnersCount == 1) {
-            winner.upNumberOfWonRounds();
+        if (winner.getPoints() == 0) {
+            winner = table.getPlayers()[0];
+            for (int i = 1; i < table.getPlayers().length; i++) {
+                if (table.getPlayers()[i].getPoints() < winner.getPoints()) {
+                    winner = table.getPlayers()[i];
+                } else if (table.getPlayers()[i].getPoints() == winner.getPoints()) {
+                    playRound();
+                    return;
+                }
+            }
         }
+
+
+        winner.upNumberOfWins();
+        resetRound();
     }
 
     @Override
     public void resetRound() {
-        table.resetRound();
+        for (Player player : table.getPlayers()) {
+            player.resetRound();
+        }
+        table.getDeck().resetRound();
     }
 
     public int getPlayersPoints(int playerID) {
-        return points[playerID - 1];
+        return points[playerID];
+    }
+
+    public String getPocketCards(int playerID) {
+        return Arrays.toString(pocketCards[playerID]);
     }
 }
