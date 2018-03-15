@@ -13,15 +13,15 @@ public class Player implements ResetRound {
 
     Player() {
         id = count++;
-        resetRound();
+        round();
     }
 
+
     void takeCard(Deck srcDeck) {
-        inGame = true;
         if (numberOfCards >= pocketCards.length) {
             pocketCards = Arrays.copyOf(pocketCards, pocketCards.length + 1);
         }
-        if (numberOfCards >= Game.DECKSIZE) {
+        if (numberOfCards >= Game.DECK_SIZE) {
             inGame = false;
             return;
         }
@@ -30,12 +30,16 @@ public class Player implements ResetRound {
         numberOfCards++;
     }
 
-    void pass() {
-        inGame = false;
-    }
+//    void pass() {
+//        inGame = false;
+//    }
 
     int getPoints() {
         return points;
+    }
+
+    public void putInGame() {
+        inGame = true;
     }
 
     boolean isInGame() {
@@ -58,8 +62,12 @@ public class Player implements ResetRound {
         return id;
     }
 
+    public int getNumberOfCards() {
+        return numberOfCards;
+    }
+
     @Override
-    public void resetRound() {
+    public void round() {
         pocketCards = new Card[2];
         numberOfCards = 0;
         points = 0;

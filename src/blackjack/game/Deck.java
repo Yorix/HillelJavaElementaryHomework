@@ -8,7 +8,7 @@ public class Deck implements ResetRound {
 
     Deck(int deckSize) {
         this.deckSize = deckSize;
-        resetRound();
+        round();
     }
     
     public void shuffle() {
@@ -34,7 +34,7 @@ public class Deck implements ResetRound {
     }
 
     @Override
-    public void resetRound() {
+    public void round() {
         cards = new Card[deckSize];
         for (int i = 0, k = 0; i < deckSize / 4; i++) {
             for (int j = 0; j < 4; j++, k++) {
