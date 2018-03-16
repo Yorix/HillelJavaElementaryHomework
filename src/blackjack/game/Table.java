@@ -8,7 +8,7 @@ public class Table {
         deck = new Deck(deckSize);
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
-            players[i] = new Player();
+            players[i] = new Player(i);
         }
     }
 
