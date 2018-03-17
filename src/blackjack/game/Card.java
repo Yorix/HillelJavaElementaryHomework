@@ -13,10 +13,6 @@ public class Card {
         return rank;
     }
 
-    public Suit getSuit() {
-        return suit;
-    }
-
     @Override
     public String toString() {
         return rank + "_of_" + suit + ".png";

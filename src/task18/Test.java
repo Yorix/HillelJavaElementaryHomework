@@ -25,7 +25,8 @@ public class Test {
 
         list.clear();
 
-        System.out.println(list);
+        list.insertAfter("new node");
 
+        System.out.println(list);
     }
 }

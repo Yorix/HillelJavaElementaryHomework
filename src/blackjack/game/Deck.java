@@ -2,7 +2,7 @@ package blackjack.game;
 
 import java.util.Arrays;
 
-public class Deck implements ResetRound {
+public class Deck {
     private Card[] cards;
     private int deckSize;
 
@@ -29,11 +29,6 @@ public class Deck implements ResetRound {
         return null;
     }
 
-    public int getDeckSize() {
-        return deckSize;
-    }
-
-    @Override
     public void round() {
         cards = new Card[deckSize];
         for (int i = 0, k = 0; i < deckSize / 4; i++) {

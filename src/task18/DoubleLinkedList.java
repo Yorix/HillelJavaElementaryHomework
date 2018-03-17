@@ -1,12 +1,9 @@
 package task18;
 
-import task18.abstraction.MyLinkedList;
-
-public class DoubleLinkedList implements MyLinkedList {
+public class DoubleLinkedList {
     private Node head;
     private Node tail;
 
-    @Override
     public boolean contains(String data) {
         Node current = head;
         while (current != null) {
@@ -18,7 +15,6 @@ public class DoubleLinkedList implements MyLinkedList {
         return false;
     }
 
-    @Override
     public void remove(String data) {
         if (head.getValue().equals(data)) {
             head = head.getNext();
@@ -36,7 +32,6 @@ public class DoubleLinkedList implements MyLinkedList {
         }
     }
 
-    @Override
     public void insertBefore(String data) {
         Node current = new Node(data);
         if (head == null) {
@@ -49,7 +44,6 @@ public class DoubleLinkedList implements MyLinkedList {
         head = current;
     }
 
-    @Override
     public void insertAfter(String data) {
         Node current = new Node(data);
         if (head == null) {
@@ -62,7 +56,6 @@ public class DoubleLinkedList implements MyLinkedList {
         tail = current;
     }
 
-    @Override
     public Node find(String data) {
         Node current = head;
         while (current != null) {
@@ -74,12 +67,10 @@ public class DoubleLinkedList implements MyLinkedList {
         return null;
     }
 
-    @Override
     public void clear() {
         head = tail = null;
     }
 
-    @Override
     public String toString() {
         Node current = head;
         StringBuilder res = new StringBuilder("");

@@ -2,7 +2,7 @@ package blackjack.game;
 
 import java.util.Arrays;
 
-public class Player implements ResetRound {
+public class Player {
     private int id;
     private Card[] pocketCards;
     private int numberOfCards;
@@ -48,7 +48,6 @@ public class Player implements ResetRound {
         return isFull;
     }
 
-    @Override
     public void round() {
         pocketCards = new Card[2];
         isFull = false;

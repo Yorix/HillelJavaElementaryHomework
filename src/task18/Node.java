@@ -1,8 +1,6 @@
 package task18;
 
-import task18.abstraction.Element;
-
-public class Node implements Element {
+public class Node {
     private String value;
     private Node previous;
     private Node next;

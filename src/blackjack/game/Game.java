@@ -130,14 +130,25 @@ public class Game extends JFrame {
         });
     }
 
+    /**
+     * Начало раунда.
+     * Обнуление счётчика активного игрока. Присвоение activePlayer ссылки на игрока из table по индексу 0.
+     * Обнуление данных объектов "игрок" и "колода".
+     * Перемешивание колоды.
+     * Добавление кнопки "ПАСС!" на панель.
+     * Обновление информации о состоянии раунда через метод updateRoundInfo().
+     * Добавление информации о состоянии раунда.
+     * Активация кнопки "колода".
+     * Возвращение панели "стол" в начальное состояние через метод redrawTable().
+     */
     private void startRound() {
         activePlayerNumber = 0;
+        activePlayer = table.getPlayers()[0];
         for (Player player : table.getPlayers()) {
             player.round();
         }
         table.getDeck().round();
         table.getDeck().shuffle();
-        activePlayer = table.getPlayers()[activePlayerNumber];
 
         headerRight.removeAll();
         headerRight.add(pass);
@@ -148,6 +159,14 @@ public class Game extends JFrame {
         window.updateUI();
     }
 
+    /**
+     * Окончание раунда.
+     * Отображаются панели с картами всех игроков.
+     * Удаляется кнопка "ПАСС!". Кнопка "колода" помечается как неактивная.
+     * Выясняется победитель в методе expose().
+     * Выводятся результаты раунда через метод showResults().
+     * Выполняется проверка на окончание игры. Если true - вывод результатов. Если false - отображение кнопки "Cледующий раунд".
+     */
     private void endRound() {
         for (int i = 0; i < numberOfPlayers; i++) {
             playersPanes[i].setVisible(true);
@@ -182,10 +201,10 @@ public class Game extends JFrame {
     /**
      * Переход хода.
      * Проверка на конец раунда посредством проверки превышения номера активного игрока над общим числом игроков.
-     * Скрытие игровой панели активного игрока.
+     * Скрытие игровой панели стола для активного игрока.
      * Приращение номера активного игрока, получение активного игрока по номеру.
      * Вызов метода обновления информации о раунде.
-     * Отображение панели нового активного игрока.
+     * Отображение панели стола для нового активного игрока.
      */
     private void nextMove() {
         if (activePlayerNumber >= numberOfPlayers - 1) {
