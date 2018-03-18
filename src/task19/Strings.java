@@ -124,9 +124,8 @@ public class Strings {
         В каждом слове текста k-ю букву заменить заданным символом. Если k
         больше длины слова, корректировку не выполнять.
          */
-
         System.out.print("Введите номер заменяемой буквы: ");
-        int num = scanner.nextInt() - 1;
+        int k = scanner.nextInt() - 1;
         System.out.print("Введите букву для замены: ");
         input = "input";
         while (input.length() > 1) {
@@ -139,10 +138,10 @@ public class Strings {
         String[] splitText = text.split(" ");
 
         for (int i = 0; i < splitText.length; i++) {
-            if (splitText[i].length() > num
-                    && !Pattern.matches(punctuation, Character.toString(splitText[i].charAt(num)))) {
+            if (splitText[i].length() > k
+                    && !Pattern.matches(punctuation, Character.toString(splitText[i].charAt(k)))) {
                 StringBuilder builder = new StringBuilder(splitText[i]);
-                builder.setCharAt(num, letter);
+                builder.setCharAt(k, letter);
                 splitText[i] = builder.toString();
             }
             newText.append(splitText[i]).append(" ");
