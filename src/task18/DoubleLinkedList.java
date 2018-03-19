@@ -21,6 +21,11 @@ public class DoubleLinkedList {
             head.setPrevious(null);
             return;
         }
+        if (tail.getValue().equals(data)) {
+            tail = tail.getPrevious();
+            tail.setNext(null);
+            return;
+        }
         Node current = head;
         while (current != null) {
             if (current.getNext().getValue().equals(data)) {
@@ -35,8 +40,7 @@ public class DoubleLinkedList {
     public void insertBefore(String data) {
         Node current = new Node(data);
         if (head == null) {
-            head = current;
-            tail = head;
+            head = tail = current;
             return;
         }
         current.setNext(head);
@@ -47,8 +51,7 @@ public class DoubleLinkedList {
     public void insertAfter(String data) {
         Node current = new Node(data);
         if (head == null) {
-            head = current;
-            tail = head;
+            head = tail = current;
             return;
         }
         tail.setNext(current);

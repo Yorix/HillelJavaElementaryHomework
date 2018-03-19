@@ -19,7 +19,7 @@ public class Test {
         System.out.println(list.find("five"));
 
         list.remove("four");
-        list.remove("five");
+        list.remove("7");
 
         System.out.println(list);
 
