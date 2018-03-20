@@ -28,8 +28,12 @@ public class Game extends JFrame {
     private Border border;
     private Border emptyBorder;
     private JComboBox<String> selectNumOfPlayers;
+    private JCheckBox addAi;
     private JButton startGame;
+    private JButton newGame;
     private JLabel roundInfo;
+    private Timer aiMove;
+    private final int aiPause = 1000;
 
 
     public Game(int numberOfRounds) {
@@ -46,17 +50,16 @@ public class Game extends JFrame {
         headerRight = new JPanel();
         tablePane = new JPanel(new GridLayout());
         backSide = new ImageIcon("src/blackjack/src/deck/0_back.png");
-        String[] np = {"2", "3", "4"};
-        selectNumOfPlayers = new JComboBox<>(np);
-        selectNumOfPlayers.setSelectedIndex(0);
+        selectNumOfPlayers = new JComboBox<>(new String[]{"1", "2", "3", "4"});
+        addAi = new JCheckBox("Добавить ИИ");
         deck = new JButton(backSide);
         pass = new JButton("ПАСС!");
+        startGame = new JButton("Начать игру");
+        newGame = new JButton("Новая игра");
+        nextRound = new JButton();
         border = BorderFactory.createEtchedBorder();
         emptyBorder = BorderFactory.createEmptyBorder(10, 20, 10, 20);
-        startGame = new JButton("Начать игру");
-        nextRound = new JButton();
         roundInfo = new JLabel();
-
 
         headerLeft.setBorder(emptyBorder);
         headerCenter.setBorder(emptyBorder);
@@ -68,19 +71,29 @@ public class Game extends JFrame {
         headerLeft.setBackground(Color.LIGHT_GRAY);
         headerCenter.setBackground(Color.LIGHT_GRAY);
         headerRight.setBackground(Color.LIGHT_GRAY);
+        addAi.setBackground(Color.LIGHT_GRAY);
         tablePane.setBorder(border);
         tablePane.setBackground(Color.GRAY);
 
+        deck.setBackground(Color.LIGHT_GRAY);
         deck.setMargin(new Insets(0, 0, 0, 0));
         deck.setBorderPainted(false);
         deck.setFocusPainted(false);
-        deck.setBackground(Color.LIGHT_GRAY);
         deck.setEnabled(false);
+
+        addAi.setFocusPainted(false);
+        startGame.setFocusPainted(false);
+        newGame.setFocusPainted(false);
+        pass.setFocusPainted(false);
+        nextRound.setFocusPainted(false);
 
         headerLeft.add(roundInfo);
         headerCenter.add(deck);
         headerRight.add(new JLabel("<html><font color='116644' size='4'>Выберите количество игроков</font></html>"));
         headerRight.add(selectNumOfPlayers);
+        headerRight.add(addAi);
+        addAi.setSelected(true);
+        selectNumOfPlayers.setSelectedIndex(0);
         headerRight.add(startGame);
 
         header.add(headerLeft);
@@ -93,8 +106,13 @@ public class Game extends JFrame {
         setVisible(true);
 
         startGame.addActionListener(e -> {
-            numberOfPlayers = selectNumOfPlayers.getSelectedIndex() + 2;
-            table = new Table(DECK_SIZE, numberOfPlayers);
+            numberOfPlayers = selectNumOfPlayers.getSelectedIndex() + 1;
+            if (addAi.isSelected()) {
+                numberOfPlayers++;
+                table = new Table(DECK_SIZE, numberOfPlayers, true);
+            } else {
+                table = new Table(DECK_SIZE, numberOfPlayers, false);
+            }
             playersPanes = new JPanel[numberOfPlayers];
             for (int i = 0; i < numberOfPlayers; i++) {
                 playersPanes[i] = new JPanel();
@@ -108,26 +126,43 @@ public class Game extends JFrame {
         });
 
         deck.addActionListener(e -> {
-            if (!activePlayer.isFull()) {
-                Card card = activePlayer.takeCard(table.getDeck());
-                JLabel label = new JLabel();
-                label.setIcon(new ImageIcon("src/blackjack/src/deck/" + card.toString()));
-                playersPanes[activePlayerNumber].add(label);
-
-                updateRoundInfo();
-                window.updateUI();
-            }
+            if (!(activePlayer.getClass() == Ai.class))
+                deckPressed();
         });
 
         pass.addActionListener(e -> {
-            nextMove();
-            window.updateUI();
+            if (!(activePlayer.getClass() == Ai.class))
+                nextMove();
         });
 
         nextRound.addActionListener(e -> {
             clearTable();
             startRound();
         });
+
+        newGame.addActionListener(e -> {
+            restartGame();
+        });
+
+        aiMove = new Timer(aiPause, e -> {
+            if (!activePlayer.isFull()) {
+                deckPressed();
+            } else {
+                nextMove();
+                aiMove.stop();
+            }
+        });
+    }
+
+    private void deckPressed() {
+        if (activePlayer.isFull()) return;
+        Card card = activePlayer.takeCard(table.getDeck());
+        JLabel label = new JLabel();
+        label.setIcon(new ImageIcon("src/blackjack/src/deck/" + card.toString()));
+        playersPanes[activePlayerNumber].add(label);
+
+        updateRoundInfo();
+        window.updateUI();
     }
 
     /**
@@ -177,25 +212,29 @@ public class Game extends JFrame {
         winner = expose();
         showResults(winner);
 
-        if (roundNumber >= numberOfRounds) {
-            StringBuilder resultOfGame = new StringBuilder("<html><font color='116644' size='4'>Итоги: <br>");
-            int maxWins = 0;
-            for (Player player : table.getPlayers()) {
-                resultOfGame.append(player).append(" победил в ")
-                        .append(player.getNumberOfWins()).append(" раундах.<br>");
-                if (player.getNumberOfWins() > maxWins) {
-                    winner = player;
-                    maxWins = winner.getNumberOfWins();
-                }
-            }
-            resultOfGame.append("</font><font color='0000ff' size='5'>" +
-                    "<br>Победитель:<br></font><font color='ff7700' size='16'>")
-                    .append(winner).append("</font></html>");
-            headerRight.add(new JLabel(resultOfGame.toString()));
-        } else {
+        if (roundNumber < numberOfRounds) {
             headerRight.add(nextRound);
+            header.updateUI();
+            return;
         }
-        window.updateUI();
+
+        StringBuilder resultOfGame = new StringBuilder("<html><font color='116644' size='4'>Итоги: <br>");
+        int maxWins = 0;
+        for (Player player : table.getPlayers()) {
+            resultOfGame.append(player).append(" победил в ")
+                    .append(player.getNumberOfWins()).append(" раундах.<br>");
+            if (player.getNumberOfWins() > maxWins) {
+                winner = player;
+                maxWins = winner.getNumberOfWins();
+            }
+        }
+        resultOfGame.append("</font><font color='0000ff' size='5'>" +
+                "<br>Победитель:<br></font><font color='ff7700' size='16'>")
+                .append(winner).append("</font></html>");
+        headerRight.add(new JLabel(resultOfGame.toString()));
+        headerCenter.removeAll();
+        headerCenter.add(newGame);
+        header.updateUI();
     }
 
     /**
@@ -215,6 +254,10 @@ public class Game extends JFrame {
         activePlayer = table.getPlayers()[++activePlayerNumber];
         updateRoundInfo();
         playersPanes[activePlayerNumber].setVisible(true);
+        if (activePlayer instanceof Ai) {
+            aiMove.start();
+        }
+        window.updateUI();
     }
 
     /**
@@ -303,5 +346,10 @@ public class Game extends JFrame {
             roundInfo.setText(string.toString() + "<br><br>Ничья!</font></html>");
             nextRound.setText("Переиграть раунд");
         }
+    }
+
+    private void restartGame() {
+        this.dispose();
+        new Game(numberOfRounds);
     }
 }

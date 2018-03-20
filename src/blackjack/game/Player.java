@@ -44,6 +44,10 @@ public class Player {
         return id;
     }
 
+    public void setFull() {
+        isFull = true;
+    }
+
     public boolean isFull() {
         return isFull;
     }
