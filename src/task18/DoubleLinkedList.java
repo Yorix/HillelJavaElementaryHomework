@@ -41,28 +41,6 @@ public class DoubleLinkedList {
         }
     }
 
-    public void removeFirst() {
-        if (head == null) return;
-        if (head == tail) {
-            clear();
-            return;
-        }
-        head = head.getNext();
-        head.setPrevious(null);
-        count--;
-    }
-
-    public void removeLast() {
-        if (head == null) return;
-        if (head == tail) {
-            clear();
-            return;
-        }
-        tail = tail.getPrevious();
-        tail.setNext(null);
-        count--;
-    }
-
     public void insertBefore(String data) {
         Node current = new Node(data);
         if (head == null) {
@@ -126,5 +104,40 @@ public class DoubleLinkedList {
             current = current.getNext();
         }
         return res.toString();
+    }
+
+    private static class Node {
+        private String value;
+        private Node previous;
+        private Node next;
+
+        private Node(String data) {
+            value = data;
+        }
+
+        private void setPrevious(Node previous) {
+            this.previous = previous;
+        }
+
+        private void setNext(Node next) {
+            this.next = next;
+        }
+
+        private String getValue() {
+            return value;
+        }
+
+        private Node getPrevious() {
+            return previous;
+        }
+
+        private Node getNext() {
+            return next;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 }

@@ -1,9 +1,8 @@
-package task20;
+package task20_21;
 
 public class Test {
     public static void main(String[] args) {
         Deque deque = new Deque();
-
 
         deque.addFirst("3");
         deque.addFirst("2");
@@ -13,6 +12,7 @@ public class Test {
         deque.addLast("5");
         deque.addLast("6");
         deque.addLast("конец"); // добавить в конец
+        System.out.println(deque);
         deque.removeFirst(); // удалить элемент из head без извлечения
         deque.removeLast(); // удалить элемент из tail без извлечения
         System.out.println(deque.peekFirst()); // получить первый не удаляя из очереди
@@ -21,8 +21,6 @@ public class Test {
         System.out.println(deque.poll()); // извлекает первый элемент (head) из очереди и удаляет его
         System.out.println(deque.contain("3")); // проверяет наличие элемента в очереди
         System.out.println(deque.size()); // возвращает размер очереди
-
         System.out.println(deque);
-
     }
 }
