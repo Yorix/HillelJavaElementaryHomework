@@ -1,40 +1,33 @@
 package blackjack.game;
 
-import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Deck {
-    private Card[] cards;
-    private int deckSize;
+    private LinkedList<Card> cards;
 
     Deck(int deckSize) {
-        this.deckSize = deckSize;
-        round();
+        cards = new LinkedList<>();
+        for (int i = 0, k = 0; i < deckSize / 4; i++) {
+            for (int j = 0; j < 4; j++, k++) {
+                cards.add(new Card(Rank.values()[i], Suit.values()[j]));
+            }
+        }
     }
     
     public void shuffle() {
-        for (int i = 0, size = cards.length; i < size; i++) {
+        for (int i = 0, size = cards.size(); i < size; i++) {
             int tmp = (int) (Math.random() * size);
-            Card tmpCard = cards[tmp];
-            cards[tmp] = cards[i];
-            cards[i] = tmpCard;
+            Card tmpCard = cards.get(tmp);
+            cards.set(tmp, cards.get(i));
+            cards.set(i, tmpCard);
         }
     }
 
-    public Card give() {
-        if (cards.length > 0) {
-            Card given = cards[cards.length - 1];
-            cards = Arrays.copyOf(cards, cards.length - 1);
-            return given;
-        }
-        return null;
+    public Card pull() {
+        return cards.poll();
     }
 
-    public void round() {
-        cards = new Card[deckSize];
-        for (int i = 0, k = 0; i < deckSize / 4; i++) {
-            for (int j = 0; j < 4; j++, k++) {
-                cards[k] = new Card(Rank.values()[i], Suit.values()[j]);
-            }
-        }
+    public void mergePocketCards(LinkedList<Card> pocketCards) {
+        cards.addAll(pocketCards);
     }
 }

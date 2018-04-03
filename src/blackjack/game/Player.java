@@ -1,31 +1,33 @@
 package blackjack.game;
 
-import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Player {
     private int id;
-    private Card[] pocketCards;
-    private int numberOfCards;
+    private LinkedList<Card> pocketCards;
     private int points;
     private int numberOfWins;
     private boolean isFull;
 
     Player(int id) {
         this.id = id;
-        round();
+        pocketCards = new LinkedList<>();
     }
 
-    public Card takeCard(Deck srcDeck) {
+    public Card takeCard(Deck deck) {
         if (isFull) return null;
-        if (numberOfCards >= pocketCards.length) {
-            pocketCards = Arrays.copyOf(pocketCards, pocketCards.length + 1);
-        }
-        Card card = srcDeck.give();
-        pocketCards[numberOfCards] = card;
+        Card card = deck.pull();
+        pocketCards.add(card);
         points += card.getRank().getValue();
         isFull = points >= 21;
-        numberOfCards++;
         return card;
+    }
+
+    public void dropPocketCards(Deck deck) {
+        deck.mergePocketCards(pocketCards);
+        pocketCards.clear();
+        isFull = false;
+        points = 0;
     }
 
     int getPoints() {
@@ -52,15 +54,8 @@ public class Player {
         return isFull;
     }
 
-    public void round() {
-        pocketCards = new Card[2];
-        isFull = false;
-        numberOfCards = 0;
-        points = 0;
-    }
-
     @Override
     public String toString() {
-        return "Игрок " + (getId() + 1);
+        return "Игрок " + (id + 1);
     }
 }

@@ -3,13 +3,14 @@ package blackjack.game;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.LinkedList;
 
 public class Game extends JFrame {
     private final int DECK_SIZE = 32;
     private int numberOfRounds;
-    private int numberOfPlayers;
 
-    private Table table;
+    private Deck deck;
+    private LinkedList<Player> players = new LinkedList<>();
     private Player winner;
     private Player activePlayer;
     private int activePlayerNumber;
@@ -21,19 +22,16 @@ public class Game extends JFrame {
     private JPanel headerRight;
     private JPanel tablePane;
     private JPanel[] playersPanes;
-    private JButton deck;
+    private JButton deckButton;
     private JButton pass;
     private JButton nextRound;
-    private ImageIcon backSide;
     private Border border;
-    private Border emptyBorder;
     private JComboBox<String> selectNumOfPlayers;
     private JCheckBox addAi;
-    private JButton startGame;
     private JButton newGame;
     private JLabel roundInfo;
     private Timer aiMove;
-    private final int aiPause = 1000;
+    private final int aiPause = 500;
 
 
     public Game(int numberOfRounds) {
@@ -49,16 +47,15 @@ public class Game extends JFrame {
         headerCenter = new JPanel();
         headerRight = new JPanel();
         tablePane = new JPanel(new GridLayout());
-        backSide = new ImageIcon("src/blackjack/src/deck/0_back.png");
         selectNumOfPlayers = new JComboBox<>(new String[]{"1", "2", "3", "4"});
         addAi = new JCheckBox("Добавить ИИ");
-        deck = new JButton(backSide);
+        deckButton = new JButton(new ImageIcon("src/blackjack/src/deck/0_back.png"));
         pass = new JButton("ПАСС!");
-        startGame = new JButton("Начать игру");
+        JButton startGame = new JButton("Начать игру");
         newGame = new JButton("Новая игра");
         nextRound = new JButton();
         border = BorderFactory.createEtchedBorder();
-        emptyBorder = BorderFactory.createEmptyBorder(10, 20, 10, 20);
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 20, 10, 20);
         roundInfo = new JLabel();
 
         headerLeft.setBorder(emptyBorder);
@@ -75,11 +72,11 @@ public class Game extends JFrame {
         tablePane.setBorder(border);
         tablePane.setBackground(Color.GRAY);
 
-        deck.setBackground(Color.LIGHT_GRAY);
-        deck.setMargin(new Insets(0, 0, 0, 0));
-        deck.setBorderPainted(false);
-        deck.setFocusPainted(false);
-        deck.setEnabled(false);
+        deckButton.setBackground(Color.LIGHT_GRAY);
+        deckButton.setMargin(new Insets(0, 0, 0, 0));
+        deckButton.setBorderPainted(false);
+        deckButton.setFocusPainted(false);
+        deckButton.setEnabled(false);
 
         addAi.setFocusPainted(false);
         startGame.setFocusPainted(false);
@@ -88,7 +85,7 @@ public class Game extends JFrame {
         nextRound.setFocusPainted(false);
 
         headerLeft.add(roundInfo);
-        headerCenter.add(deck);
+        headerCenter.add(deckButton);
         headerRight.add(new JLabel("<html><font color='116644' size='4'>Выберите количество игроков</font></html>"));
         headerRight.add(selectNumOfPlayers);
         headerRight.add(addAi);
@@ -105,27 +102,9 @@ public class Game extends JFrame {
         setContentPane(window);
         setVisible(true);
 
-        startGame.addActionListener(e -> {
-            numberOfPlayers = selectNumOfPlayers.getSelectedIndex() + 1;
-            if (addAi.isSelected()) {
-                numberOfPlayers++;
-                table = new Table(DECK_SIZE, numberOfPlayers, true);
-            } else {
-                table = new Table(DECK_SIZE, numberOfPlayers, false);
-            }
-            playersPanes = new JPanel[numberOfPlayers];
-            for (int i = 0; i < numberOfPlayers; i++) {
-                playersPanes[i] = new JPanel();
-                playersPanes[i].setBackground(Color.LIGHT_GRAY);
-                playersPanes[i].setBorder(border);
-                playersPanes[i].setVisible(false);
-                tablePane.add(playersPanes[i]);
-            }
-            window.add(tablePane);
-            startRound();
-        });
+        startGame.addActionListener(e -> startGame());
 
-        deck.addActionListener(e -> {
+        deckButton.addActionListener(e -> {
             if (!(activePlayer.getClass() == Ai.class))
                 deckPressed();
         });
@@ -135,14 +114,9 @@ public class Game extends JFrame {
                 nextMove();
         });
 
-        nextRound.addActionListener(e -> {
-            clearTable();
-            startRound();
-        });
+        nextRound.addActionListener(e -> startRound());
 
-        newGame.addActionListener(e -> {
-            restartGame();
-        });
+        newGame.addActionListener(e -> restartGame());
 
         aiMove = new Timer(aiPause, e -> {
             if (!activePlayer.isFull()) {
@@ -154,9 +128,32 @@ public class Game extends JFrame {
         });
     }
 
+    private void startGame() {
+        int numberOfPlayers = selectNumOfPlayers.getSelectedIndex() + 1;
+        for (int i = 0; i < numberOfPlayers; i++) {
+            players.add(new Player(i));
+        }
+        if (addAi.isSelected()) {
+            players.add(new Ai(numberOfPlayers));
+            numberOfPlayers++;
+        }
+        deck = new Deck(DECK_SIZE);
+        playersPanes = new JPanel[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++) {
+            playersPanes[i] = new JPanel();
+            playersPanes[i].setBackground(Color.LIGHT_GRAY);
+            playersPanes[i].setBorder(border);
+            playersPanes[i].setVisible(false);
+            tablePane.add(playersPanes[i]);
+        }
+        window.add(tablePane);
+
+        startRound();
+    }
+
     private void deckPressed() {
         if (activePlayer.isFull()) return;
-        Card card = activePlayer.takeCard(table.getDeck());
+        Card card = activePlayer.takeCard(deck);
         JLabel label = new JLabel();
         label.setIcon(new ImageIcon("src/blackjack/src/deck/" + card.toString()));
         playersPanes[activePlayerNumber].add(label);
@@ -178,18 +175,18 @@ public class Game extends JFrame {
      */
     private void startRound() {
         activePlayerNumber = 0;
-        activePlayer = table.getPlayers()[0];
-        for (Player player : table.getPlayers()) {
-            player.round();
+        activePlayer = players.getFirst();
+        for (Player player : players) {
+            player.dropPocketCards(deck);
         }
-        table.getDeck().round();
-        table.getDeck().shuffle();
+        deck.shuffle();
 
+        clearTable();
         headerRight.removeAll();
         headerRight.add(pass);
         updateRoundInfo();
         headerLeft.add(roundInfo);
-        deck.setEnabled(true);
+        deckButton.setEnabled(true);
         redrawTable();
         window.updateUI();
     }
@@ -203,10 +200,10 @@ public class Game extends JFrame {
      * Выполняется проверка на окончание игры. Если true - вывод результатов. Если false - отображение кнопки "Cледующий раунд".
      */
     private void endRound() {
-        for (int i = 0; i < numberOfPlayers; i++) {
+        for (int i = 0, numOfPlrs = players.size(); i < numOfPlrs; i++) {
             playersPanes[i].setVisible(true);
         }
-        deck.setEnabled(false);
+        deckButton.setEnabled(false);
         headerRight.removeAll();
 
         winner = expose();
@@ -220,7 +217,7 @@ public class Game extends JFrame {
 
         StringBuilder resultOfGame = new StringBuilder("<html><font color='116644' size='4'>Итоги: <br>");
         int maxWins = 0;
-        for (Player player : table.getPlayers()) {
+        for (Player player : players) {
             resultOfGame.append(player).append(" победил в ")
                     .append(player.getNumberOfWins()).append(" раундах.<br>");
             if (player.getNumberOfWins() > maxWins) {
@@ -246,15 +243,15 @@ public class Game extends JFrame {
      * Отображение панели стола для нового активного игрока.
      */
     private void nextMove() {
-        if (activePlayerNumber >= numberOfPlayers - 1) {
+        if (activePlayerNumber >= players.size() - 1) {
             endRound();
             return;
         }
         playersPanes[activePlayerNumber].setVisible(false);
-        activePlayer = table.getPlayers()[++activePlayerNumber];
+        activePlayer = players.get(++activePlayerNumber);
         updateRoundInfo();
         playersPanes[activePlayerNumber].setVisible(true);
-        if (activePlayer instanceof Ai) {
+        if (activePlayer.getClass() == Ai.class) {
             aiMove.start();
         }
         window.updateUI();
@@ -277,14 +274,14 @@ public class Game extends JFrame {
         int repeated = 0;
         winner = null;
 
-        for (Player player : table.getPlayers()) {
+        for (Player player : players) {
             if (player.getPoints() <= 21 && player.getPoints() > max) {
                 max = player.getPoints();
             }
         }
 
         if (max > 0) {
-            for (Player player : table.getPlayers()) {
+            for (Player player : players) {
                 if (player.getPoints() == max) {
                     winner = player;
                     repeated++;
@@ -294,12 +291,12 @@ public class Game extends JFrame {
                 }
             }
         } else {
-            for (Player player : table.getPlayers()) {
+            for (Player player : players) {
                 if (player.getPoints() < min && player.getPoints() > 21) {
                     min = player.getPoints();
                 }
             }
-            for (Player player : table.getPlayers()) {
+            for (Player player : players) {
                 if (player.getPoints() == min) {
                     winner = player;
                     repeated++;
@@ -313,14 +310,14 @@ public class Game extends JFrame {
     }
 
     private void redrawTable() {
-        for (int i = 0; i < numberOfPlayers; i++) {
+        for (int i = 0, numOfPlrs = players.size(); i < numOfPlrs; i++) {
             playersPanes[i].setVisible(false);
         }
         playersPanes[activePlayerNumber].setVisible(true);
     }
 
     private void clearTable() {
-        for (int i = 0; i < numberOfPlayers; i++) {
+        for (int i = 0, numOfPlrs = players.size(); i < numOfPlrs; i++) {
             playersPanes[i].removeAll();
         }
     }
@@ -333,7 +330,7 @@ public class Game extends JFrame {
     private void showResults(Player winner) {
         StringBuilder string = new StringBuilder("<html><font color='990000' size='6'>" +
                 "Результаты " + (roundNumber + 1) + " раунда: </font><br><font color='0000ff' size='4'>");
-        for (Player player : table.getPlayers()) {
+        for (Player player : players) {
             string.append(player).append(" - ").append(player.getPoints()).append(" очков.<br>");
         }
         if (winner != null) {

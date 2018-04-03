@@ -7,8 +7,8 @@ public class Ai extends Player {
     }
 
     @Override
-    public Card takeCard(Deck srcDeck) {
-        Card card = super.takeCard(srcDeck);
+    public Card takeCard(Deck deck) {
+        Card card = super.takeCard(deck);
         if (this.getPoints() > 17) this.setFull();
         return card;
     }
