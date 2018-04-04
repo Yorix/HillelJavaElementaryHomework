@@ -1,4 +1,4 @@
-package blackjack.game;
+package blackjack_25.game;
 
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package blackjack.game;
+package blackjack_25.game;
 
 public class Ai extends Player {
 

@@ -1,4 +1,4 @@
-package blackjack.game;
+package blackjack_25.game;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -49,7 +49,7 @@ public class Game extends JFrame {
         tablePane = new JPanel(new GridLayout());
         selectNumOfPlayers = new JComboBox<>(new String[]{"1", "2", "3", "4"});
         addAi = new JCheckBox("Добавить ИИ");
-        deckButton = new JButton(new ImageIcon("src/blackjack/src/deck/0_back.png"));
+        deckButton = new JButton(new ImageIcon("src/blackjack_25/src/deck/0_back.png"));
         pass = new JButton("ПАСС!");
         JButton startGame = new JButton("Начать игру");
         newGame = new JButton("Новая игра");
@@ -155,7 +155,7 @@ public class Game extends JFrame {
         if (activePlayer.isFull()) return;
         Card card = activePlayer.takeCard(deck);
         JLabel label = new JLabel();
-        label.setIcon(new ImageIcon("src/blackjack/src/deck/" + card.toString()));
+        label.setIcon(new ImageIcon("src/blackjack_25/src/deck/" + card.toString()));
         playersPanes[activePlayerNumber].add(label);
 
         updateRoundInfo();
