@@ -1,0 +1,168 @@
+.root {
+    -fx-background-color: black;
+    -fx-background-image: url("/img/bg.png");
+    -fx-text-fill: #999;
+}
+
+.button {
+    -fx-background-color:
+        #444,
+        linear-gradient(#444, #555);
+    -fx-background-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-pref-width: 150px;
+    -fx-effect: innershadow(gaussian, #522, 20, 0.3, -5, -5);
+}
+
+.button:hover {
+    -fx-text-fill: linear-gradient(from 0% 0% to 30% 40%, repeat, #100 0%, #500 100%);
+    -fx-background-color: #404040;
+}
+
+.button:pressed {
+    -fx-text-fill: linear-gradient(from 0% 0% to 40% 40%, repeat, #810 0%, #f20 100%);
+    -fx-background-color: #111;
+    -fx-effect: innershadow(gaussian, #900, 20, 0.3, -2, -2);
+}
+
+#btnAddRemove {
+    -fx-background-color: transparent;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 0px;
+    -fx-padding: 0px;
+    -fx-effect: none;
+    -fx-text-fill: linear-gradient(from 0% 0% to 10% 10%, repeat, #633 0%, #966 100%);
+    -fx-font-size: 30px;
+}
+
+#btnAddRemove:hover {
+    -fx-text-fill: linear-gradient(from 0% 0% to 10% 10%, repeat, #600 0%, #d20 100%);
+    -fx-font-size: 40px;
+    -fx-effect: dropshadow(gaussian, #d53, 6, 0.0, 0, 0);
+}
+
+#btnAddRemove:pressed {
+    -fx-text-fill: linear-gradient(from 0% 0% to 10% 10%, repeat, #f00 0%, #f97 100%);
+    -fx-font-size: 40px;
+    -fx-effect: dropshadow(gaussian, #f74, 20, 0.5, 0, 0);
+}
+
+#btnPass {
+    -fx-pref-width: 70px;
+    -fx-pref-height: 70px;
+}
+
+#btnDeck {
+    -fx-background-radius: 6px;
+    -fx-background-image: url("/img/deck/0_back.png");
+    -fx-background-size: 100%;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 120px;
+    -fx-padding: 0px;
+    -fx-effect: dropshadow(gaussian, #a77, 0, 0.0, -3, 4);
+}
+
+#btnDeck:hover {
+    -fx-pref-width: 84px;
+    -fx-pref-height: 126px;
+    -fx-rotate: 358;
+    -fx-effect: dropshadow(gaussian, #f88, 15, 0.2, 0, 0);
+}
+
+#btnDeck:pressed {
+    -fx-pref-width: 90px;
+    -fx-pref-height: 135px;
+    -fx-rotate: 356;
+    -fx-effect: innershadow(gaussian, #f00, 50, 0.0, 0, 0);
+}
+
+.label, .check-box {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #666;
+    -fx-effect: dropshadow(gaussian, rgba(150,0,0,0.6) , 5,0,1,1);
+}
+
+.text-field, .combo-box, .check-box .box {
+    -fx-background-color: black;
+    -fx-background-radius: 10px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #910;
+    -fx-effect: dropshadow(gaussian, darkgray, 10, 0.0, 0, 0);
+}
+
+
+.list-view {
+    -fx-background-color: black;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #a00;
+    -fx-effect: dropshadow(gaussian, darkgray, 10, 0.0, 0, 0);
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #a00;
+}
+
+.list-cell:hover {
+    -fx-background-color: #a00;
+    -fx-text-fill: black;
+    -fx-effect: innershadow(gaussian, #000, 20, 0.5, -7, 0);
+}
+
+#playersListView {
+    -fx-background-color: black;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, darkgray, 10, 0.0, 0, 0);
+}
+
+#cardListView, #cardListView .list-cell {
+    -fx-background-color: transparent;
+}
+
+#cardListView .list-cell:empty, .table-cell:empty, #playersListView .list-cell:empty {
+    -fx-opacity: 0;
+}
+
+#cardListView .list-cell:hover {
+    -fx-rotate: 2;
+    -fx-effect: dropshadow(gaussian, #f00, 10, 0.0, 0, 0);
+}
+
+#cardListView .list-cell:selected {
+    -fx-effect: dropshadow(gaussian, #f10, 20, 0.5, 0, 0);
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-pref-height: 98px;
+    -fx-opacity: 80%;
+    -fx-effect: innershadow(gaussian, #0a0a0a, 50, 0.5, 0, 0);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#300 0%, #000 80%);
+}
+
+.table-view .column-header-background .label {
+    -fx-text-fill: #faa;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #999;
+    -fx-alignment: center;
+}
+
+.table-row-cell {
+    -fx-background-color: linear-gradient(#300 0%, #111 100%);
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
