@@ -11,8 +11,8 @@ public class Test {
 
         /*
 Проверить является ли объект класса SysAdmin наследником класса Client.
-Проверить является ли объект класса Worker наследником класса Person.
-Проверить является ли объект класса Worker наследником класса Manager.
+Проверить является ли объект класса StringWorker наследником класса Person.
+Проверить является ли объект класса StringWorker наследником класса Manager.
 Проверить является ли объект класса SysAdmin наследником класса Person.
 Проверить является ли объект класса Manager наследником класса Client.
 Проверить является ли объект класса Client наследником класса Employee.
@@ -20,8 +20,8 @@ public class Test {
         */
 
         System.out.println("SysAdmin is Client - " + ((Object) sysAdmin instanceof Client));
-        System.out.println("Worker is Person - " + ((Object) worker instanceof Person));
-        System.out.println("Worker is Manager - " + ((Object) worker instanceof Manager));
+        System.out.println("StringWorker is Person - " + ((Object) worker instanceof Person));
+        System.out.println("StringWorker is Manager - " + ((Object) worker instanceof Manager));
         System.out.println("SysAdmin is Person - " + ((Object) sysAdmin instanceof Person));
         System.out.println("Manager is Client - " + ((Object) manager instanceof Client));
         System.out.println("Client is Employee - " + ((Object) client instanceof Employee));
