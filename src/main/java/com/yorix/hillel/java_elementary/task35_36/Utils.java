@@ -9,9 +9,9 @@ import java.util.stream.Stream;
 
 public class Utils {
 
-    public static long averageSalaries(Stream<Employee> stream) {
+    public static double averageSalaries(Stream<Employee> stream) {
         LongStream salariesStream = stream.mapToLong(Employee::getSalary);
-        return (long) salariesStream.average().getAsDouble();
+        return salariesStream.average().getAsDouble();
     }
 
     public static List<Employee> getListFromStream(Stream<Employee> stream) {

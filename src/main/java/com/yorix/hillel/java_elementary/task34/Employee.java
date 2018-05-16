@@ -2,7 +2,7 @@ package com.yorix.hillel.java_elementary.task34;
 
 public class Employee {
     private String name;
-    private long salary;
+    private Long salary;
     private int age;
     private Gender gender;
     private boolean married;
@@ -19,7 +19,7 @@ public class Employee {
         return name;
     }
 
-    public long getSalary() {
+    public Long getSalary() {
         return salary;
     }
 

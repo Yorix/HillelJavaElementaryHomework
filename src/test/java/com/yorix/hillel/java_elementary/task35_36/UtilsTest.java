@@ -5,6 +5,7 @@ import com.yorix.hillel.java_elementary.task34.Gender;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static com.yorix.hillel.java_elementary.task35_36.Utils.averageSalaries;
@@ -24,8 +25,12 @@ public class UtilsTest {
 
     @Test
     public void testAverageSalaries() {
-        assertEquals(15_000, averageSalaries(stream));
+        assertEquals(Optional.of(15_000.0), Optional.of(averageSalaries(stream)));
     }
+
+
+
+
 
     @Test
     public void testGetListFromStream1() {
