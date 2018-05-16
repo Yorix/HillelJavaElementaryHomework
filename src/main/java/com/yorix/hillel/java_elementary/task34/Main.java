@@ -4,20 +4,26 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+    private static List<Employee> employees = Arrays.asList(
+            new Employee("Коля", 20_000_00L, 42, Gender.MALE, false),
+            new Employee("Валя", 26_000_00L, 27, Gender.FEMALE, true),
+            new Employee("Гена", 7_000_00L, 34, Gender.MALE, false),
+            new Employee("Витя", 30_000_00L, 27, Gender.MALE, true),
+            new Employee("Маша", 12_000_00L, 36, Gender.FEMALE, true),
+            new Employee("Вика", 45_000_00L, 51, Gender.FEMALE, false),
+            new Employee("Олег", 5_000_00L, 48, Gender.MALE, true),
+            new Employee("Коля", 14_000_00L, 50, Gender.MALE, false),
+            new Employee("Валя", 8_000_00L, 19, Gender.FEMALE, false),
+            new Employee("Стёпа", 5_000_00L, 35, Gender.MALE, true),
+            new Employee("Саша", 9_000_00L, 22, Gender.MALE, false)
+    );
+
+    public static List<Employee> getEmployees() {
+        return employees;
+    }
+
     public static void main(String[] args) {
-        List<Employee> employees = Arrays.asList(
-                new Employee("Коля", 20_000_00L, 42, Gender.MALE, false),
-                new Employee("Валя", 26_000_00L, 27, Gender.FEMALE, true),
-                new Employee("Гена", 7_000_00L, 34, Gender.MALE, false),
-                new Employee("Витя", 30_000_00L, 27, Gender.MALE, true),
-                new Employee("Маша", 12_000_00L, 36, Gender.FEMALE, true),
-                new Employee("Вика", 45_000_00L, 51, Gender.FEMALE, false),
-                new Employee("Олег", 5_000_00L, 48, Gender.MALE, true),
-                new Employee("Коля", 14_000_00L, 50, Gender.MALE, false),
-                new Employee("Валя", 8_000_00L, 19, Gender.FEMALE, false),
-                new Employee("Стёпа", 5_000_00L, 35, Gender.MALE, true),
-                new Employee("Саша", 9_000_00L, 22, Gender.MALE, false)
-        );
+
 
         System.out.println("\nполучить первого женатого мужчину + вывести его имя в консоль");
         employees.stream()
