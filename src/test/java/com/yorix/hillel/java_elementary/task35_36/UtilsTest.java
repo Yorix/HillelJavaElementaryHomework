@@ -29,4 +29,9 @@ public class UtilsTest {
         Optional<Double> average = Optional.of(5_000_00D);
         assertEquals(average, averageSalaries(stream));
     }
+
+    @Test
+    public void testGetListFromStream() {
+        assertEquals(Long.valueOf(4_000_00), getListFromStream(stream).get(0).getSalary());
+    }
 }
