@@ -13,7 +13,9 @@ public class Utils {
 
     public static Optional<Double> averageSalaries(Stream<Employee> stream) {
         OptionalDouble average = stream.mapToDouble(Employee::getSalary).average();
-        return Optional.of(average.getAsDouble());
+        if (average.isPresent())
+            return Optional.of(average.getAsDouble());
+        else return Optional.empty();
     }
 
     public static List<Employee> getListFromStream(Stream<Employee> stream) {
