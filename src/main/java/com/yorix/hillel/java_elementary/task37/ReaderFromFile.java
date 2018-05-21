@@ -3,11 +3,12 @@ package com.yorix.hillel.java_elementary.task37;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ReaderFromFile {
-    public static List<Employee> getEmployeesFromFile(String filename) {
+    public static List<Employee> getEmployees(String filename) {
         List<Employee> resultList = new LinkedList<>();
 
         try (BufferedReader bfr = new BufferedReader(new FileReader(filename))) {
@@ -17,6 +18,7 @@ public class ReaderFromFile {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            resultList = Collections.emptyList();
         }
         return resultList;
     }

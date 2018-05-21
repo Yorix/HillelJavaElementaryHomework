@@ -10,8 +10,9 @@ import static com.yorix.hillel.java_elementary.task37.ReaderFromFile.*;
 public class ReaderFromFileTest {
 
     @Test
-    public void TestGetEmployeesFromFile() {
-        List<Employee> list = getEmployeesFromFile("input.csv");
+    public void TestGetEmployees() {
+        String path = ClassLoader.getSystemResource("input.csv").getFile();
+        List<Employee> list = getEmployees(path);
         assertEquals(list.get(1).getName(), "Katerina Ivanenko");
     }
 }
