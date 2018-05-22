@@ -19,6 +19,10 @@ public class Employee {
         return name;
     }
 
+    public void setSalary(long salary) {
+        this.salary = salary;
+    }
+
     public long getSalary() {
         return salary;
     }

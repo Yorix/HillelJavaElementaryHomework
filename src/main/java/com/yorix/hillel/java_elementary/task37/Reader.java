@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ReaderFromFile {
-    public static List<Employee> getEmployees(String filename) {
+public class Reader {
+    public static List<Employee> read(String filename) {
         List<Employee> resultList = new LinkedList<>();
 
         try (BufferedReader bfr = new BufferedReader(new FileReader(filename))) {
