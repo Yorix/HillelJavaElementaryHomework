@@ -1,0 +1,1 @@
+UPDATE `auto`.`model` SET `gear_box_type_id` = '2', `year_of_manufacture` = 2000, `price` = '50000', `num` = '5', `country_id` = '2' WHERE (`id` = '121');
