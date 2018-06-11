@@ -56,7 +56,7 @@
 
 #btnDeck {
     -fx-background-radius: 6px;
-    -fx-background-image: url("/img/deck/0_back.png");
+    -fx-background-image: url("/blackjack/img/deck/0_back.png");
     -fx-background-size: 100%;
     -fx-pref-width: 80px;
     -fx-pref-height: 120px;

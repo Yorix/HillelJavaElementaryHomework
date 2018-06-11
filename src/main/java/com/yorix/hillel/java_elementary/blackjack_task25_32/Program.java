@@ -16,8 +16,8 @@ public class Program extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/start.fxml"));
-        loader.setResources(ResourceBundle.getBundle("bundles/Locale", new Locale("ru")));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/blackjack/fxml/start.fxml"));
+        loader.setResources(ResourceBundle.getBundle("blackjack/bundles/Locale", new Locale("ru")));
         Parent parent = loader.load();
 
         StartWindowController startWindowController = loader.getController();
@@ -26,7 +26,7 @@ public class Program extends Application {
         primaryStage.setTitle(loader.getResources().getString("key.title"));
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(parent));
-        primaryStage.getIcons().add(new Image("/img/blackjack.png"));
+        primaryStage.getIcons().add(new Image("/blackjack/img/blackjack.png"));
         primaryStage.show();
     }
 

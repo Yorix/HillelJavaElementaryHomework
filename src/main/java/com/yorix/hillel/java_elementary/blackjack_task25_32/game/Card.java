@@ -11,7 +11,7 @@ public class Card {
     Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
-        img = new Image("/img/deck/" + toString());
+        img = new Image("/blackjack/img/deck/" + toString());
     }
 
     public int getValue() {

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Writer {
     public void write(List<Employee> list) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("res/output.csv"))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("res/task38/output.csv"))) {
             for (Employee employee : list) {
                 bufferedWriter.write(writeToString(employee));
             }

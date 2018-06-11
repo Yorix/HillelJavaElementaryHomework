@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Client {
     public static void main(String[] args) {
-        String path = getPathToResource("input.csv");
+        String path = getPathToResource("task38/input.csv");
         List<Employee> list = Reader.read(path);
 
         list.stream()

@@ -11,7 +11,7 @@ public class ReaderTest {
 
     @Test
     public void TestGetEmployees() {
-        String path = ClassLoader.getSystemResource("input.csv").getFile();
+        String path = ClassLoader.getSystemResource("task38/input.csv").getFile();
         List<Employee> list = read(path);
         assertEquals(list.get(1).getName(), "Katerina Ivanenko");
     }
