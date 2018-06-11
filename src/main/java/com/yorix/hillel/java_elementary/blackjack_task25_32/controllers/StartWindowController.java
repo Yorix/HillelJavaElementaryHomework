@@ -87,7 +87,7 @@ public class StartWindowController implements Initializable {
     }
 
     private void showGameWindow() {
-        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("/fxml/game.fxml"));
+        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("/blackjack/fxml/game.fxml"));
         gameLoader.setResources(resourceBundle);
 
         Parent parent = null;
@@ -113,14 +113,14 @@ public class StartWindowController implements Initializable {
         }
 
         Scene scene = new Scene(pane);
-        scene.getStylesheets().add("/styles/style.css");
+        scene.getStylesheets().add("/blackjack/styles/style.css");
 
         Stage gameStage = new Stage();
         gameStage.setScene(scene);
         gameStage.setTitle(resourceBundle.getString("key.title"));
         gameStage.setMinWidth(600);
         gameStage.setMinHeight(600);
-        gameStage.getIcons().add(new Image("/img/blackjack.png"));
+        gameStage.getIcons().add(new Image("/blackjack/img/blackjack.png"));
         gameStage.show();
 
         gameController.setGameStage(gameStage);
