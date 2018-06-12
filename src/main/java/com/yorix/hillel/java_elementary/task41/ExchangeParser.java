@@ -95,7 +95,12 @@ public class ExchangeParser {
         exchangeParser.parse();
         exchangeParser.currencies.stream()
                 .filter(currency -> currency.getTxt().equalsIgnoreCase(requiredCurrency))
-                .map(currency -> currency.getTxt() + ". Курс: " + currency.getRate())
+                .map(currency -> currency.getTxt()
+                        + ". Курс на "
+                        + currency.getExchangedate().format(DateTimeFormatter.ofPattern("dd.MM.yy"))
+                        + ": 1 USD = "
+                        + currency.getRate()
+                        + " UAH")
                 .forEach(System.out::println);
     }
 }
