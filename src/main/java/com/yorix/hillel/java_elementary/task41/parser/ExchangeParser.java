@@ -1,5 +1,6 @@
-package com.yorix.hillel.java_elementary.task41;
+package com.yorix.hillel.java_elementary.task41.parser;
 
+import com.yorix.hillel.java_elementary.task41.Currency;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -24,7 +25,6 @@ public class ExchangeParser {
             private boolean rate;
             private boolean cc;
             private boolean exchangedate;
-            int count = -1;
 
             @Override
             public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -47,7 +47,6 @@ public class ExchangeParser {
                         break;
                     default:
                         currencies.add(new Currency());
-                        count++;
                 }
             }
 
@@ -55,27 +54,28 @@ public class ExchangeParser {
             public void characters(char[] ch, int start, int length) throws SAXException {
                 String element = new String(ch, start, length);
                 if (r030) {
-                    currencies.get(count).setR030(element);
+                    currencies.get(currencies.size() - 1).setR030(element);
                     r030 = false;
                 }
                 if (txt) {
-                    currencies.get(count).setTxt(element);
+                    currencies.get(currencies.size() - 1).setTxt(element);
                     txt = false;
                 }
                 if (rate) {
-                    currencies.get(count).setRate(Double.parseDouble(element));
+                    currencies.get(currencies.size() - 1).setRate(Double.parseDouble(element));
                     rate = false;
                 }
                 if (cc) {
-                    currencies.get(count).setCc(element);
+                    currencies.get(currencies.size() - 1).setCc(element);
                     cc = false;
                 }
                 if (exchangedate) {
-                    currencies.get(count).setExchangedate(LocalDate.parse(element, DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+                    currencies.get(currencies.size() - 1).setExchangedate(LocalDate.parse(element, DateTimeFormatter.ofPattern("dd.MM.yyyy")));
                     exchangedate = false;
                 }
             }
         };
+
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser;
@@ -87,20 +87,18 @@ public class ExchangeParser {
         }
     }
 
-    public static void main(String[] args) {
+    public List<Currency> getCurrencies() {
+        return currencies;
+    }
 
-        String requiredCurrency = "долар сша";
-
-        ExchangeParser exchangeParser = new ExchangeParser();
-        exchangeParser.parse();
-        exchangeParser.currencies.stream()
-                .filter(currency -> currency.getTxt().equalsIgnoreCase(requiredCurrency))
+    public void showRate(String requiredCurrency) {
+        currencies.stream()
+                .filter(currency -> currency.getTxt().toLowerCase().contains(requiredCurrency.toLowerCase()))
                 .map(currency -> currency.getTxt()
                         + ". Курс на "
                         + currency.getExchangedate().format(DateTimeFormatter.ofPattern("dd.MM.yy"))
-                        + ": 1 USD = "
-                        + currency.getRate()
-                        + " UAH")
+                        + " - "
+                        + currency.getRate())
                 .forEach(System.out::println);
     }
 }
