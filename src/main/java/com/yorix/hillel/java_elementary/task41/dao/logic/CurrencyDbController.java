@@ -39,7 +39,7 @@ public class CurrencyDbController implements Controller<Currency, String> {
             statement.setDate(5, Date.valueOf(currency.getExchangedate()));
             statement.executeUpdate();
         } catch (SQLIntegrityConstraintViolationException e) {
-            update(currency.getTxt());
+            update(currency);
             System.out.println("update: " + currency.getTxt());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,8 +72,7 @@ public class CurrencyDbController implements Controller<Currency, String> {
     }
 
     @Override
-    public void update(String txt) {
-        Currency currency = get(txt);
+    public void update(Currency currency) {
         String sql = "update `currency`\n" +
                 " set `r030` = ?, `txt` = ?, `rate` = ?, `cc` = ?, `exchangedate` = ?\n" +
                 " where `r030` = " + currency.getR030();

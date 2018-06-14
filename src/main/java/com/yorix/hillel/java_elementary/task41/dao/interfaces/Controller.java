@@ -9,7 +9,7 @@ public interface Controller<E, K> {
 
     E get(K key);
 
-    void update(K key);
+    void update(E entity);
 
     void delete(K key);
 }
