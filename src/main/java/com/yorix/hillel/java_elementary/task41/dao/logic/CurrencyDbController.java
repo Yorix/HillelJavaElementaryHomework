@@ -17,7 +17,7 @@ public class CurrencyDbController implements Controller<Currency, String> {
                     " `rate` double(16, 10)," +
                     " `cc` varchar(3)," +
                     " `exchangedate` date)";
-            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/?useSSL=false&serverTimezone=UTC", "user", "password");
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/?verifyServerCertificate=false&useSSL=false&serverTimezone=UTC", "user", "password");
             Statement statement = connection.createStatement();
             statement.execute("create schema if not exists `exchange`");
             statement.execute("use `exchange`");
@@ -38,8 +38,11 @@ public class CurrencyDbController implements Controller<Currency, String> {
             statement.setString(4, currency.getCc());
             statement.setDate(5, Date.valueOf(currency.getExchangedate()));
             statement.executeUpdate();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            update(currency.getTxt());
+            System.out.println("update: " + currency.getTxt());
         } catch (SQLException e) {
-            System.err.println(currency.getR030() + " already exists!");
+            e.printStackTrace();
         }
     }
 
@@ -70,7 +73,20 @@ public class CurrencyDbController implements Controller<Currency, String> {
 
     @Override
     public void update(String txt) {
-
+        Currency currency = get(txt);
+        String sql = "update `currency`\n" +
+                " set `r030` = ?, `txt` = ?, `rate` = ?, `cc` = ?, `exchangedate` = ?\n" +
+                " where `r030` = " + currency.getR030();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, currency.getR030());
+            statement.setString(2, currency.getTxt());
+            statement.setDouble(3, currency.getRate());
+            statement.setString(4, currency.getCc());
+            statement.setDate(5, Date.valueOf(currency.getExchangedate()));
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
