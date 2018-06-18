@@ -17,7 +17,9 @@ public class CurrencyDbController implements Controller<Currency, String> {
                     " `rate` double(16, 10)," +
                     " `cc` varchar(3)," +
                     " `exchangedate` date)";
-            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/?verifyServerCertificate=false&useSSL=false&serverTimezone=UTC", "user", "password");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://127.0.0.1:3306/?verifyServerCertificate=false&useSSL=true&serverTimezone=UTC",
+                    "user", "password");
             Statement statement = connection.createStatement();
             statement.execute("create schema if not exists `exchange`");
             statement.execute("use `exchange`");

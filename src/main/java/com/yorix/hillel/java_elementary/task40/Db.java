@@ -41,10 +41,11 @@ public class Db {
                 " join brand on model.brand_id = brand.id" +
                 " join gear_box on model.gear_box_type_id = gear_box.id" +
                 " join country on model.country_id = country.id" +
-                " where price = (select " + value +"(price) from model)";
+                " where price = (select " + value + "(price) from model)";
 
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
             while (resultSet.next()) {
                 System.out.println(
                         resultSet.getString("brand") + " : " +
@@ -67,8 +68,8 @@ public class Db {
                 " join country on model.country_id = country.id" +
                 " where country = '" + country + "'";
 
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(1) + " : " + resultSet.getString(2));
             }
@@ -84,8 +85,8 @@ public class Db {
                 " join country on model.country_id = country.id" +
                 " where price <= '" + price + "'";
 
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 System.out.println(
                         resultSet.getString("brand") + " : " +
@@ -107,8 +108,8 @@ public class Db {
                 " join brand on model.brand_id = brand.id" +
                 " where brand.brand = '" + brand + "'";
 
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(1));
             }
